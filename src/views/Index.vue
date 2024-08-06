@@ -38,7 +38,7 @@ onMounted(() => {
 
   // 加载 glTF 模型
   const loader = new GLTFLoader();
-  loader.load('/src/assets/3d-models/lamborghini/scene.gltf', function (gltf) {
+  loader.load('/3d-models/lamborghini/scene.gltf', function (gltf) {
       scene.add(gltf.scene);
   }, undefined, function (error) {
       console.error(error);
