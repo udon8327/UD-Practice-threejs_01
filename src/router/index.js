@@ -12,6 +12,11 @@ const router = createRouter({
       name: "Index",
       component: () => import("@/views/Index.vue"),
     },
+    {
+      path: "/car",
+      name: "Car",
+      component: () => import("@/views/Car.vue"),
+    },
 
     // 錯誤頁
     {
