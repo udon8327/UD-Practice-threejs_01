@@ -42,6 +42,12 @@ onMounted(() => {
   controls.target.set(0, 0.5, 0);
   controls.update();
 
+  // 創建地面
+  const geometry = new THREE.BoxGeometry(1000, 0.001, 1000)
+  const material = new THREE.MeshBasicMaterial({color: 0x3b3b3b})
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
   // 加載glTF模型
   const loader = new GLTFLoader();
   loader.load('/3d-models/lamborghini/scene.gltf', function (gltf) {
