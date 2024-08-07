@@ -1,8 +1,10 @@
 <template lang="pug">
 #car
+  #stats
 </template>
 
 <script setup>
+import Stats from 'stats.js';
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import * as THREE from 'three';
@@ -11,6 +13,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 const router = useRouter();
 
 onMounted(() => {
+  // 建立FPS監測器
+  const stats = new Stats();
+  stats.showPanel(0); // 0: fps, 1: ms, 2: memory
+  document.body.appendChild(stats.dom);
+
   // 创建场景
   const scene = new THREE.Scene();
 
@@ -39,26 +46,32 @@ onMounted(() => {
   // 加载 glTF 模型
   const loader = new GLTFLoader();
   loader.load('/3d-models/lamborghini/scene.gltf', function (gltf) {
-      scene.add(gltf.scene);
+    scene.add(gltf.scene);
   }, undefined, function (error) {
-      console.error(error);
+    console.error(error);
   });
 
   // 处理窗口大小调整
   window.addEventListener('resize', function () {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
   // 动画循环
   function animate() {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+    stats.begin();
+    renderer.render(scene, camera);
+    stats.end();
   }
   animate();
 })
 </script>
 
 <style lang="sass" scoped>
+#stats
+  position: absolute
+  left: 0
+  top: 0
 </style>

@@ -1,6 +1,5 @@
 <template lang="pug">
 #index
-  p Index
 </template>
 
 <script setup>
