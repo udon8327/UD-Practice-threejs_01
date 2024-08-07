@@ -1,6 +1,5 @@
 <template lang="pug">
 #car
-  #stats
 </template>
 
 <script setup>
@@ -18,32 +17,32 @@ onMounted(() => {
   stats.showPanel(0); // 0: fps, 1: ms, 2: memory
   document.body.appendChild(stats.dom);
 
-  // 创建场景
+  // 創建場景
   const scene = new THREE.Scene();
 
-  // 创建相机
+  // 創建相機
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.set(0, 1, 5);
 
-  // 创建渲染器
+  // 創建渲染器
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  // 添加光源
+  // 添加光源
   const light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(5, 5, 5).normalize();
   scene.add(light);
 
-  const ambientLight = new THREE.AmbientLight(0x404040);
+  const ambientLight = new THREE.AmbientLight(0xffffff);
   scene.add(ambientLight);
 
-  // 创建控制器
+  // 創建控制器
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0.5, 0);
   controls.update();
 
-  // 加载 glTF 模型
+  // 加載glTF模型
   const loader = new GLTFLoader();
   loader.load('/3d-models/lamborghini/scene.gltf', function (gltf) {
     scene.add(gltf.scene);
@@ -51,14 +50,14 @@ onMounted(() => {
     console.error(error);
   });
 
-  // 处理窗口大小调整
+  // 處理窗口大小調整
   window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  // 动画循环
+  // 動畫循環
   function animate() {
     requestAnimationFrame(animate);
     stats.begin();
@@ -70,8 +69,4 @@ onMounted(() => {
 </script>
 
 <style lang="sass" scoped>
-#stats
-  position: absolute
-  left: 0
-  top: 0
 </style>
